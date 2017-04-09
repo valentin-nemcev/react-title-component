@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 
 let titles = []
 
@@ -16,27 +17,25 @@ export function flushTitle() {
   return title
 }
 
-const { oneOfType, string, func } = React.PropTypes
-
-const Title = React.createClass({
-
-  propTypes: {
-    render: oneOfType([ string, func ]).isRequired
-  },
-
-  getInitialState() {
-    return {
+class Title extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
       index: titles.push('') - 1
     }
-  },
+  }
 
   componentWillUnmount() {
     titles.pop()
-  },
+  }
 
-  componentDidMount: updateTitle,
+  componentDidMount() {
+    updateTitle()
+  }
 
-  componentDidUpdate: updateTitle,
+  componentDidUpdate() {
+    updateTitle()
+  }
 
   render() {
     const { render } = this.props
@@ -45,8 +44,12 @@ const Title = React.createClass({
       : render
     return this.props.children || null
   }
+}
 
-})
+const { oneOfType, string, func } = React.PropTypes
+
+Title.propTypes = {
+  render: oneOfType([ string, func ]).isRequired
+}
 
 export default Title
-
