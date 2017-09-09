@@ -46,7 +46,7 @@ class Title extends React.Component {
   }
 }
 
-const { oneOfType, string, func } = React.PropTypes
+const { oneOfType, string, func } = PropTypes
 
 Title.propTypes = {
   render: oneOfType([ string, func ]).isRequired
